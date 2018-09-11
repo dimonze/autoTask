@@ -1,7 +1,8 @@
 <?php
-require_once 'Helper/Excel/reader.php';
-use Page\walmartPage;
 
+use Page\walmartPage;
+use Codeception\Step\Assertion;
+require_once 'Helper/XLSXReader.php';
 
 
 /**
@@ -22,6 +23,8 @@ use Page\walmartPage;
 class AcceptanceTester extends \Codeception\Actor
 {
     use _generated\AcceptanceTesterActions;
+
+    private $xlsFile;
 
     /**
      * @Given I am on :arg1
@@ -66,29 +69,28 @@ class AcceptanceTester extends \Codeception\Actor
 
     /**
      * @Given I open xls file :arg1
+     * @throws Exception
      */
     public function iOpenXlsFile($arg1)
     {
-        $data = new Spreadsheet_Excel_Reader();
-        $data->setOutputEncoding('CP1251');
-        $data->read($arg1);
+        $path = realpath(__DIR__ . '/xls/' . $arg1);
+        $this->xlsFile = new XLSXReader($path);
     }
 
     /**
      * @Given It should contains
      * @param \Behat\Gherkin\Node\TableNode $xls
+     * @throws Exception
      */
     public function itShouldContains(\Behat\Gherkin\Node\TableNode $xls)
     {
+        $sheets =  $this->xlsFile->getSheetNames();
         foreach ($xls->getRows() as $index => $row) {
-            if ($index === 0) { // first row to define fields
-                $keys = $row;
-                continue;
-            }
-            //$this->haveRecord('Product', array_combine($keys, $row));
+            \PHPUnit_Framework_Assert::assertTrue(in_array($row[0], $sheets), true);
         }
-    }
 
+//        $data =  $this->xlsFile->getSheetData('Source Data'); same we could do for exact cells
+    }
 
 
 }

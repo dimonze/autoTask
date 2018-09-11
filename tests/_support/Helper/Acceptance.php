@@ -1,7 +1,6 @@
 <?php
 
 namespace Helper;
-use Spreadsheet_Excel_Reader;
 
 
 // here you can define custom actions

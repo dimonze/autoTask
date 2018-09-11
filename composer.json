@@ -1,5 +1,9 @@
 {
     "require-dev": {
         "codeception/codeception": "^2.4"
+    },
+    "require": {
+        "ext-zip": "^1.15",
+        "ext-SimpleXML": "^7.2"
     }
 }

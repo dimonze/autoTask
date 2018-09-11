@@ -15,7 +15,7 @@ Feature: test
     Then I should see "Class 4K (2160P) LED TV"
 
   Scenario: check xls file
-    Given I open xls file "test"
+    And I open xls file "sample.xlsx"
     And It should contains
-      |name| value|
-      |name| value|
+      | Source Data |
+      | By Product |

@@ -16,6 +16,7 @@ class walmartPage
     public static $elements = [
         'searchFiled' => 'input[name=query]',
         'searchBtn' => 'button[name=elc-icon-search-nav]',
+        'downloadXls' => 'div[label=Download]',
         ];
     static $searchFiled = 'input[name=search]';
     static $passwordField = '#mainForm input[name=password]';
